@@ -1,0 +1,22 @@
+{
+  "usuario1": {
+    "primerNombre": "Nadia",
+    "medioNombre": "Melissa",
+    "apellido": "Castillo",
+    "id": "0384",
+    "switch": "true",
+    "username": "nadiamelissacainf",
+    "password1": "Ncastill123!",
+    "password2": "Ncastill123!"
+  },
+  "usuario2": {
+    "primerNombre": "Catalina",
+    "medioNombre": "Elisa",
+    "apellido": "Romann",
+    "id": "",
+    "switch": "true",
+    "username": "cromann",
+    "password1": "Cromann123!",
+    "password2": "Cromann123!"
+  }
+}

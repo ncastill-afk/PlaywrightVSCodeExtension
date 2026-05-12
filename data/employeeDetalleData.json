@@ -1,0 +1,39 @@
+{
+  "usuario1": {
+    "primerNombre": "Nadia",
+    "medioNombre": "Melissa",
+    "apellido": "Castillo",
+    "nickname": "Milly",
+    "id": "0384",
+    "numLicencia": "2653111",
+    "dia_cal": "9",
+    "mes_cal": "May",
+    "anio_cal": "2026",
+    "nacionalidad": "Chilean",
+    "estadoCivil": "Single",
+    "anio_Nac": "1977",
+    "mes_Nac": "August",
+    "dia_Nac": "16",
+    "file1": "C:/Users/danae/Downloads/imprimir.pdf",
+    "comment": "imprimir adjunto",
+    "file2": "C:/Users/danae/Downloads/imprimir2.pdf"
+  },
+  "usuario2": {
+    "primerNombre": "Catalina",
+    "medioNombre": "Elisa",
+    "apellido": "Romann",
+    "nickname": "Cata",
+    "numLicencia": "2362346",
+    "dia_cal": "20",
+    "mes_cal": "May",
+    "anio_cal": "2026",
+    "nacionalidad": "Chilean",
+    "estadoCivil": "Single",
+    "anio_Nac": "2016",
+    "mes_Nac": "April",
+    "dia_Nac": "18",
+    "file1": "C:/Users/danae/Downloads/imprimir.pdf",
+    "comment": "imprimir adjunto",
+    "file2": "C:/Users/danae/Downloads/imprimir2.pdf"
+  }
+}
