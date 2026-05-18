@@ -24,7 +24,7 @@ test('Orange Site', async ({page}, testInfo) => {
     employeeData.usuario1.id = id_employee;
     console.log("employeeData.usuario1.id: "+employeeData.usuario1.id);
     employeeDetalleData.usuario1.id = id_employee;
-    await page.pause();
+    //await page.pause();
       
     fs.writeFileSync(
         './data/employeeData.json',

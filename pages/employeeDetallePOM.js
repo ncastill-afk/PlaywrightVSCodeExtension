@@ -56,7 +56,7 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
     }
     
         async addEmployeeDetalle(employeeDetalleData, testInfo){
-            console.log("En addEmployeeDetalle");
+            //console.log("En addEmployeeDetalle");
             const isMobile = testInfo.project.name.includes('Mobile');
             await expect(this.firstName_textbox).toHaveValue(employeeDetalleData.primerNombre);
             await expect(this.middleName_textbox).toHaveValue(employeeDetalleData.medioNombre);
@@ -66,10 +66,10 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
             }
             console.log("id guardado: " + employeeDetalleData.id + " id esperado: " + await this.id_textbox.inputValue());
             await expect(this.id_textbox).toHaveValue(employeeDetalleData.id);
-            console.log("pasó los expects");
+            //console.log("pasó los expects");
             await this.numLicencia_textbox.click();
             await this.numLicencia_textbox.fill(employeeDetalleData.numLicencia);
-            console.log("antes del calendario");
+            //console.log("antes del calendario");
             await this.licenciaExpiracion_cal.click();
             await this.page.getByText(employeeDetalleData.anio_cal, { exact: true }).click();
             await this.page.getByText(employeeDetalleData.mes_cal, { exact: true }).click();
@@ -94,25 +94,25 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
             await this.page.getByText(employeeDetalleData.anio_Nac, { exact: true }).click();
             await this.page.getByText(employeeDetalleData.mes_Nac, { exact: true }).click();
             await this.page.getByText(employeeDetalleData.dia_Nac, { exact: true }).click();*/
-            console.log("despues del calendario fecha de nacimiento");
+            //console.log("despues del calendario fecha de nacimiento");
             await this.sexo_radioBtn.click();
             await expect(this.guardar1_button).toBeVisible();
             await this.guardar1_button.click();
-            await this.page.pause();
+            //await this.page.pause();
 
             //await this.addFile_button.click();
-            console.log("antes de cargar el archivo");
-            console.log("archivo: "+employeeDetalleData.file1);
+            //console.log("antes de cargar el archivo");
+            //console.log("archivo: "+employeeDetalleData.file1);
 
-            console.log("existe:", fs.existsSync(employeeDetalleData.file1));
+            //console.log("existe:", fs.existsSync(employeeDetalleData.file1));
             
             await this.addFile_button.click();
             await expect(this.file_input).toBeAttached();
             
             await this.file_input.setInputFiles(employeeDetalleData.file1, { timeout: 5000 });
             const files = await this.file_input.evaluate(el => el.files.length);
-            console.log("files cargados:", files);
-            console.log("despues de cargar el archivo");
+            //console.log("files cargados:", files);
+            //console.log("despues de cargar el archivo");
             await this.comment_textbox.click();
             await this.comment_textbox.fill(employeeDetalleData.comment);
             await this.guardar3_button.click();
@@ -125,12 +125,12 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
                 await this.editar_Mobile_button.click();
             }
 
-            console.log("archivo: "+employeeDetalleData.file2);
-            console.log("existe:", fs.existsSync(employeeDetalleData.file2));
+            //console.log("archivo: "+employeeDetalleData.file2);
+            //console.log("existe:", fs.existsSync(employeeDetalleData.file2));
             await this.file_input.setInputFiles(employeeDetalleData.file2);
-            console.log("despues de cargar el archivo 2");
+            //console.log("despues de cargar el archivo 2");
             await this.guardar4_button.click();
-            await this.page.pause();
+            //await this.page.pause();
     }
 
 }

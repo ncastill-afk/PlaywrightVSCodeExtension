@@ -39,14 +39,14 @@ exports.employeePage=class employeePagePOM{
             //await addBtn.click();
 
             if (isMobile) {
-                console.log("count mobile:", await this.add_link.count());
+                //console.log("count mobile:", await this.add_link.count());
                 await this.add_link.waitFor({ state: 'visible' });
                 await expect(this.add_link).toBeVisible();
                 await expect(this.add_link).toBeEnabled();
                 await this.add_link.click();
 
             }else{
-                console.log("count desktop:", await this.addEmployee_link.count());
+                //console.log("count desktop:", await this.addEmployee_link.count());
                 await this.addEmployee_link.waitFor({ state: 'visible' });
                 await expect(this.addEmployee_link).toBeVisible();
                 await expect(this.addEmployee_link).toBeEnabled();
