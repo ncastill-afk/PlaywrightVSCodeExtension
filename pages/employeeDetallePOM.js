@@ -30,7 +30,7 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
             .filter({ has: page.getByText('Personal Details') })
             .getByRole('button', { name: 'Save' });*/
         //this.guardar1_button = page.locator('form').filter({ hasText: 'Employee Full NameEmployee' }).getByRole('button', { name: 'Save' });    
-        this.guardar1_button = page.locator('xpath=//*[@id="app"]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[4]/button');
+        this.guardar1_button = page.locator('button').filter({ hasText: 'Save' }).first();
         //this.addFile_button = page.getByRole('button', { name: ' Add' });
         this.addFile_button =  page.locator('button').filter({ hasText: 'Add' });
         //this.browse_button = page.locator('button').filter({ hasText: 'Browse' });
@@ -74,13 +74,13 @@ exports.employeeDetallePage=class employeeDetallePagePOM{
             await this.page.getByText(employeeDetalleData.anio_cal, { exact: true }).click();
             await this.page.getByText(employeeDetalleData.mes_cal, { exact: true }).click();
             await this.page.getByText(employeeDetalleData.dia_cal, { exact: true }).click();
-            console.log("despues del calendario");
+            //console.log("despues del calendario");
             await this.nacionalidad_combobox.click();
             await this.page.getByRole('option', {name: employeeDetalleData.nacionalidad}).click();
             await this.estadoCivil_combobox.click();
             //await this.estadoCivil_combobox.selectOption(employeeDetalleData.estadoCivil);
             await this.page.getByRole('option', {name: employeeDetalleData.estadoCivil}).click();
-            console.log("antes del calendario fecha de nacimiento");
+            //console.log("antes del calendario fecha de nacimiento");
             await this.fechaNac_cal.click();
             await this.page.locator('.oxd-calendar-selector-year').click();
             await this.page.getByText(employeeDetalleData.anio_Nac.toString(), { exact: true }).click();

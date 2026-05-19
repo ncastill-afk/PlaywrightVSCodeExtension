@@ -5,17 +5,19 @@ const employeeData = require('../../data/employeeData.json');
 const employeeDetalleData = require('../../data/employeeDetalleData.json');
 import { employeePage } from '../../pages/employeePOM.js';
 import { employeeDetallePage } from '../../pages/employeeDetallePOM.js';
+import { listEmployeePage } from '../../pages/listEmployeePOM.js';
 const fs = require('fs');
 
 test('Orange Site', async ({page}, testInfo) => {
     const login = new loginOrangePage(page);
     const employee = new employeePage(page);
     const employeeDetalle = new employeeDetallePage(page);
+    const listEmployee = new listEmployeePage(page);
     const isMobile = testInfo.project.name.includes('Mobile');
 
     await login.goToLoginPage();
     await login.doLogin('Admin', 'admin123');
-    await page.pause();
+    //await page.pause();
     await login.loginValidado();
     
 
@@ -39,6 +41,10 @@ test('Orange Site', async ({page}, testInfo) => {
     await employee.addEmployeeValidado();
 
     await employeeDetalle.addEmployeeDetalle(employeeDetalleData.usuario1, testInfo);
+    await page.pause();
+    await listEmployee.consultaEmployee(employeeDetalleData.usuario1, testInfo);
+
+    await login.doLogout();
     
     await page.pause();
 });
