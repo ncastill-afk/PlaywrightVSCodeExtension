@@ -58,7 +58,10 @@ exports.employeePage=class employeePagePOM{
             if(employeeData.switch === 'true'){
                 await this.switch_input.click();
                 await this.username_textbox.click();
-                await this.username_textbox.fill(employeeData.username);
+                // Generar un username único en cada ejecución
+                const usernameUnico =`${employeeData.username}_${Date.now()}`;
+                await this.username_textbox.fill(usernameUnico);
+                //await this.username_textbox.fill(employeeData.username);
                 await this.password1_textbox.click();
                 await this.password1_textbox.fill(employeeData.password1);
                 await this.password2_textbox.fill(employeeData.password2);
@@ -70,14 +73,39 @@ exports.employeePage=class employeePagePOM{
         async guardarEmployee(){
             console.log("En guardarEmployee");
             //Guardar el empleado creado
-            await this.saveButtton.click();            
+            await this.saveButtton.waitFor({ state: 'visible' });
+            await expect(this.saveButtton).toBeEnabled();
+
+            //console.log("Botones Save encontrados:", await this.saveButtton.count());
+
+            await this.saveButtton.click();
+
+            // Esperar brevemente para observar la respuesta de OrangeHRM
+            await this.page.waitForTimeout(2000);
+
+            //console.log("URL después de Save:", this.page.url());
+
+            /*console.log(
+                "Errores después de Save:",
+                await this.page.locator('.oxd-input-field-error-message').allTextContents()
+            );
+
+            console.log(
+                "Mensajes después de Save:",
+                await this.page.locator('.oxd-toast-content-text').allTextContents()
+            );*/
     }
 
         async addEmployeeValidado(){
             console.log("En addEmployeeValidado");
             //console.log("URL actual:", this.page.url());
+            // Mostrar posibles errores de los campos
             //console.log("Errores de validación:", await this.page.locator('.oxd-input-field-error-message').allTextContents());
+            // Mostrar mensajes de confirmación
             //console.log("Mensajes de confirmación:", await this.page.locator('.oxd-toast-content-text').allTextContents());
+            // Mostrar los encabezados de la pantalla actual
+            const encabezados = await this.page.locator('h6').allTextContents();
+            //console.log("Encabezados actuales:", encabezados);
             //Validar que se haya creado el empleado y que se muestren los datos personales
             await this.page.waitForLoadState('networkidle');
             const personalDetails = this.page.getByRole('heading', {name: 'Personal Details', exact: true});
