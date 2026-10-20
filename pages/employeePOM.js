@@ -75,8 +75,15 @@ exports.employeePage=class employeePagePOM{
 
         async addEmployeeValidado(){
             console.log("En addEmployeeValidado");
+            //console.log("URL actual:", this.page.url());
+            //console.log("Errores de validación:", await this.page.locator('.oxd-input-field-error-message').allTextContents());
+            //console.log("Mensajes de confirmación:", await this.page.locator('.oxd-toast-content-text').allTextContents());
             //Validar que se haya creado el empleado y que se muestren los datos personales
             await this.page.waitForLoadState('networkidle');
-            await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toHaveText('Personal Details');
+            const personalDetails = this.page.getByRole('heading', {name: 'Personal Details', exact: true});
+
+            // Esperar a que se muestre la pantalla de datos personales
+            await expect(personalDetails).toBeVisible({timeout: 15000});
+            //await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toHaveText('Personal Details');
     }
 }

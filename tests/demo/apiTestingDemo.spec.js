@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 //How to run a Get API Request
-test('Get API Request', async ({ request }) => {
+/*test('Get API Request', async ({ request }) => {
 
     //const response= await request.get('https://reqres.in/api/users/2');
     //Get Method
@@ -24,6 +24,30 @@ test('Get API Request', async ({ request }) => {
     console.log(await response.json());
  
     
+});*/
+// How to run a GET API Request
+test('Get API Request', async ({ request }) => {
+
+    const response = await request.get(
+        'https://reqres.in/api/users?page=2',
+        {
+            headers: {
+                'x-api-key': 'free_user_3DKEPYSm43L3yEnPAcpu09JQDjX',
+            },
+        }
+    );
+
+    expect(response.status()).toBe(200);
+
+    const body = await response.json();
+
+    console.log(body);
+
+    // Validar la página solicitada
+    expect(body.page).toBe(2);
+
+    // Validar que la respuesta contiene usuarios
+    expect(body.data.length).toBeGreaterThan(0);
 });
 
 //How to run a POST API Request
