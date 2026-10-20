@@ -2,7 +2,19 @@
 # Playwright
 node_modules/
 /test-results/
+/test-examples/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+csvReader.js
+excelReader.js
+testTrace.zip
+/tests/testTrace.zip
+/data/reservaData.js
+/data/reservas.xlsx
+/pages/destinoPOM.js
+/pages/loginPOM.js
+/pages/reservaPOM.js
+/pages/vuelosPOM.js
+
