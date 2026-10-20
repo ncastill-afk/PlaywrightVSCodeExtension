@@ -68,10 +68,6 @@ PlaywrightVSCodeExtention/
 -   `playwright.config.js`: configura la ejecución de Playwright, los
     navegadores y los proyectos definidos.
 
-> Si las carpetas `pages`, `tests` o `data` tienen otro nombre o
-> ubicación en tu proyecto, actualiza este árbol para que coincida con
-> la estructura real.
-
 ## Flujo automatizado
 
 El flujo principal de OrangeHRM contempla estas acciones, según la
@@ -130,7 +126,6 @@ Antes de ejecutar el proyecto, instala:
 
 Ejecuta los comandos desde la carpeta raíz del proyecto, donde se
 encuentra `package.json`.
-Si ejecutas el proyecto varias veces, se debe modificar el **username** que está dentro del formulario  **Add Employee**, luego presionas Save y la prueba continuará con su flujo automatizado.
 
 ### Ejecutar un archivo de pruebas en Chrome
 
