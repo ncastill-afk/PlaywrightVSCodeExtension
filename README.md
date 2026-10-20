@@ -43,6 +43,7 @@ PlaywrightVSCodeExtention/
 │   └── listEmployeePOM.js
 ├── tests/
 │   └── demo/
+│       ├── apiTestingDemo.spec.js
 │       └── orangeSitePOM.spec.js
 ├── playwright.config.js
 ├── package.json
@@ -60,6 +61,7 @@ PlaywrightVSCodeExtention/
     adjuntos.
 -   `orangeSitePOM.spec.js`: contiene el caso o los casos de prueba que
     coordinan el flujo automatizado.
+-   `apiTestingDemo.spec.js`: Este archivo contiene pruebas automatizadas de API utilizando Playwright y su funcionalidad APIRequestContext, que permite realizar solicitudes HTTP sin necesidad de abrir un navegador.
 -   `employeeData.json`: almacena los datos utilizados para registrar al
     empleado.
 -   `employeeDetalleData.json`: almacena los datos utilizados para
