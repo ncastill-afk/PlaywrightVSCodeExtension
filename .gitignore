@@ -17,4 +17,6 @@ testTrace.zip
 /pages/loginPOM.js
 /pages/reservaPOM.js
 /pages/vuelosPOM.js
+/tests/demo/agenciaViajesPOM.spec.js
+/tests/demo/loginDemoPOM.spec.js
 
