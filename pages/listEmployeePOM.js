@@ -4,85 +4,110 @@ exports.listEmployeePage=class listEmployeePagePOM{
 
     constructor(page){
         this.page = page;
-        this.menu_button = page.locator('.oxd-topbar-header-hamburger');
-        //this.pim_link = page.getByRole('link', { name: 'PIM' });
-        this.pim_link = page.locator('.oxd-main-menu-item:has-text("PIM")');
-        this.listEmployee_link = page.getByRole('link', { name: 'Employee List' });
-        this.down_button = page.locator('xpath=//*[@id="app"]/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[2]/div[3]/button/i');
-        //this.add_link = page.getByRole('button', { name: 'Add' });
-        //this.addEmployee_link = page.locator('a[href*="addEmployee"]');
-        //this.idEmployee_textbox = page.getByRole('textbox', { name: 'Employee Id' });
-        //this.idEmployee_textbox = page.locator('input').filter({has: page.locator('xpath=ancestor::div[label[text()="Employee Id"]]')});
-        this.idEmployee_textbox = page.locator('xpath=//*[@id="app"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/input');
-        //this.idEmployee_textbox = page.getByRole('textbox', { name: 'Type for hints...' });
-        //this.nameEmployee_textbox = page.getByRole('textbox', { name: 'Employee Name' });
-        //this.nameEmployee_textbox = page.locator('input').filter({has: page.locator('xpath=ancestor::div[label[text()="Employee Name"]]')});
-        //this.nameEmployee_textbox = page.locator('xpath=//*[@id="app"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/div/div');
-        this.nameEmployee_textbox = page.locator('input[placeholder="Type for hints..."]').first();
-        //this.nameEmployee_textbox = page.getByRole('textbox').nth(2);
-        this.searchButtton = page.getByRole('button', { name: 'Search' });
-        this.registrosEncontrados = page.locator('//*[@id="app"]/div[1]/div[2]/div[2]/div/div[2]/div[2]/div/span');
+        this.menu_button = this.page.locator('.oxd-topbar-header-hamburger');
+        this.pim_link = this.page.locator('.oxd-main-menu-item:has-text("PIM")');
+        this.listEmployee_link = this.page.getByRole('link', { name: 'Employee List' });
+        this.add_link = this.page.getByRole('button', { name: 'Add' });
+        this.filtros_toggle = this.page.locator('button.oxd-icon-button:has(.bi-caret-down-fill)');
+        this.idEmployee_textbox = this.page.locator('.oxd-input-group').filter({has: this.page.getByText('Employee Id', { exact: true })}).locator('input');
+        this.nameEmployee_textbox = this.page.locator('.oxd-input-group').filter({has: this.page.getByText('Employee Name', { exact: true })}).locator('input');
+        this.searchButtton = this.page.getByRole('button', { name: 'Search' });
+        this.registrosEncontrados = this.page.getByText(/Record Found|Records Found/);
+        this.filaEmpleado = this.page.getByRole('row');
+        this.tarjetaEmpleado = this.page.locator('.card-center');
     }
- 
-        async consultaEmployee(employeeDetalleData, testInfo){
-            console.log("en consultaEmployee");
-            await this.page.waitForLoadState('networkidle');
-             const isMobile = testInfo.project.name.includes('Mobile');
 
-            if (isMobile) {
-                await this.menu_button.waitFor({ state: 'visible' });
-                await this.menu_button.click();
-                await this.pim_link.waitFor({ state: 'visible' });
-                await this.pim_link.click();
-                await this.down_button.waitFor({ state: 'visible' });
-                await this.down_button.click(); 
+    async elegirMenuListEmployee(isMobile){
+        console.log("En elegirMenuListEmployee");
+        //Elegir el menú PIM y luego Employee List
+        await this.page.waitForLoadState('networkidle');
+
+        if (isMobile) {
+            await this.menu_button.waitFor({ state: 'visible' });
+            await this.menu_button.click();
+            await this.pim_link.waitFor({ state: 'visible' });
+            await this.pim_link.click();
+            await this.page.waitForLoadState('domcontentloaded');
+            //console.log('URL actual:', this.page.url());
+            //console.log('Título de la página:', await this.page.title());
+            //console.log('Texto visible:', (await this.page.locator('body').innerText()).slice(0, 2000));
+            //await expect(this.page.getByRole('heading', { name: 'Employee Information' })).toBeVisible({ timeout: 15000 });
+            //console.log('Título:', await this.page.title());
+            //console.log('URL:', this.page.url());
+            //console.log('Texto visible:', (await this.page.locator('body').innerText()).slice(0, 1500));
+            //console.log('URL actual:', this.page.url());
+            //console.log('Iconos caret-up:', await this.page.locator('.oxd-icon.bi-caret-up-fill').count());
+            //console.log('Campos de texto:', await this.page.getByRole('textbox').count());
+            //console.log('Enlace Employee List:', await this.page.getByRole('link', { name: 'Employee List' }).count());
             }
             else{
                 await this.listEmployee_link.waitFor({ state: 'visible' });
                 await expect(this.listEmployee_link).toBeVisible();
                 await expect(this.listEmployee_link).toBeEnabled();
                 await this.listEmployee_link.click();
+                await expect(this.idEmployee_textbox).toBeVisible();
             }
-            //const addBtn = this.getAddEmployeeLink(isMobile);
-            //await addBtn.click();
-
-            /*if (isMobile) {
-                //console.log("count mobile:", await this.add_link.count());
-                await this.add_link.waitFor({ state: 'visible' });
-                await expect(this.add_link).toBeVisible();
-                await expect(this.add_link).toBeEnabled();
-                await this.add_link.click();
-
-            }else{
-                //console.log("count desktop:", await this.addEmployee_link.count());
-            }*/
+            //console.log('URL actual:', this.page.url());
+            //console.log('Título Employee List:', await this.page.getByRole('heading', {name: 'Employee Information'}).count());
+            //console.log('Campos de texto visibles:', await this.page.locator('.oxd-input').count());
+            //console.log('URL:', this.page.url());
+            //console.log('Localizador Employee Id:', await this.idEmployee_textbox.count());
+            //console.log('Inputs encontrados:', await this.page.locator('input').count());
             
-            await expect(this.idEmployee_textbox).toBeVisible();
+        }
 
-            await this.idEmployee_textbox.click();
+        async visibilizarCamposBusqueda(){
+            console.log("En visibilizarCamposBusqueda");
+            //Visibilizar los campos de búsqueda de la lista de empleados en la versión mobile
+            const areaFiltros = this.page.locator('.oxd-table-filter-area');
+
+            //console.log('Área de filtros visible:', await areaFiltros.isVisible());
+            //console.log('Campo Employee Id visible:', await this.idEmployee_textbox.isVisible());
+            //if (!(await areaFiltros.isVisible())) {
+            if (!(await this.idEmployee_textbox.isVisible())) {
+                await this.filtros_toggle.click();
+            }
+
+            await expect(areaFiltros).toBeVisible();
+            await expect(this.idEmployee_textbox).toBeVisible();
+        }
+
+        async completarCamposBusqueda(employeeDetalleData){
+            console.log("En completarCamposBusqueda");
+            //Completar los campos de búsqueda de la lista de empleados a partir del archivo json
             await this.idEmployee_textbox.fill(employeeDetalleData.id);
             await this.nameEmployee_textbox.fill(employeeDetalleData.apellido);
-            // esperar dropdown
-            //await this.page.waitForSelector('.oxd-autocomplete-option');
+        }
 
-            // seleccionar primera opción
-            //await this.page.locator('.oxd-autocomplete-option').first().click();
-            /*await this.lastName_textbox.fill(employeeData.apellido);
-            await this.id_textbox.inputValue();
-            console.log("Id a guardar: " +await this.id_textbox.inputValue()) ;
-            if(employeeData.switch === 'true'){
-                await this.switch_input.click();
-                await this.username_textbox.click();
-                await this.username_textbox.fill(employeeData.username);
-                await this.password1_textbox.click();
-                await this.password1_textbox.fill(employeeData.password1);
-                await this.password2_textbox.fill(employeeData.password2);
-                expect(employeeData.password1).toBe(employeeData.password2);
-            }*/
+        async buscarResultados(){
+            console.log("En buscarResultados");
+            //Buscar los resultados de la lista de empleados
+            //console.log('Botones Search encontrados:', await this.searchButtton.count());
+            //console.log('Botón Search visible:', await this.searchButtton.isVisible());
+            //console.log('Botón Search habilitado:', await this.searchButtton.isEnabled());
+            await expect(this.searchButtton).toBeVisible();
+            await expect(this.searchButtton).toBeEnabled();
             await this.searchButtton.click();
+        }
 
-            expect(await this.registrosEncontrados.textContent()).toBe('(1) Record Found'); 
-            //return await this.id_textbox.inputValue();
-    }
+        async seleccionarResultado(employeeDetalleData, isMobile){
+            console.log("En seleccionarResultado");
+            //Seleccionar el resultado de la lista de empleados y validar que se haya encontrado el empleado creado
+            //console.log('URL:', this.page.url());
+            //console.log('Texto visible en pantalla:', (await this.page.locator('body').innerText()).slice(0, 2500));
+            //console.log('Coincidencias de registros encontrados:', await this.registrosEncontrados.count());
+            await expect(this.registrosEncontrados).toHaveText('(1) Record Found');
 
+            const fila = this.filaEmpleado.filter({hasText: String(employeeDetalleData.id)});
+            const tarjeta = this.tarjetaEmpleado.filter({hasText: String(employeeDetalleData.id)});
+
+            if (isMobile) {
+                await tarjeta.locator('button:has(i.bi-pencil-fill)').click();
+            }else{
+                await fila.locator('button:has(i.bi-pencil-fill)').click();
+            }
+            await this.page.waitForURL('**/pim/viewPersonalDetails/empNumber/**');
+            const tituloPersonalDetails = this.page.getByRole('heading',{ name: 'Personal Details', exact: true });
+            await expect(tituloPersonalDetails).toBeVisible();
+        }
 }

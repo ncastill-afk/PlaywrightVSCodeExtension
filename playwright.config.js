@@ -56,6 +56,7 @@ export default defineConfig({
     //trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
+    headless: true,
 
   },
 

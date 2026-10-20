@@ -5,11 +5,9 @@ exports.employeePage=class employeePagePOM{
     constructor(page){
         this.page = page;
         this.menu_button = page.locator('.oxd-topbar-header-hamburger');
-        //this.pim_link = page.getByRole('link', { name: 'PIM' });
         this.pim_link = page.locator('.oxd-main-menu-item:has-text("PIM")');
         this.addEmployee_link = page.getByRole('link', { name: 'Add Employee' });
         this.add_link = page.getByRole('button', { name: 'Add' });
-        //this.addEmployee_link = page.locator('a[href*="addEmployee"]');
         this.firstName_textbox = page.getByRole('textbox', { name: 'First Name' });
         this.middleName_textbox = page.getByRole('textbox', { name: 'Middle Name' });
         this.lastName_textbox = page.getByRole('textbox', { name: 'Last Name' });
@@ -20,23 +18,16 @@ exports.employeePage=class employeePagePOM{
         this.password2_textbox = page.locator('input[type="password"]').nth(1);     
         this.saveButtton = page.getByRole('button', { name: 'Save' });
     }
- 
-        /*getAddEmployeeLink(isMobile) {
-            return isMobile
-                ? this.page.getByRole('link', { name: 'Add' })
-                : this.page.getByRole('link', { name: 'Add Employee' });
-        }*/
-        async addEmployee(employeeData, testInfo){
-             const isMobile = testInfo.project.name.includes('Mobile');
 
+        async elegirMenuAddEmployee(isMobile){
+            console.log("En elegirMenuAddEmployee");
+            //Seleccionar el menú PIM y luego Add Employee
             if (isMobile) {
                 await this.menu_button.waitFor({ state: 'visible' });
                 await this.menu_button.click();
             }
             await this.pim_link.waitFor({ state: 'visible' });
             await this.pim_link.click();
-            //const addBtn = this.getAddEmployeeLink(isMobile);
-            //await addBtn.click();
 
             if (isMobile) {
                 //console.log("count mobile:", await this.add_link.count());
@@ -53,7 +44,12 @@ exports.employeePage=class employeePagePOM{
                 await this.addEmployee_link.click();
             }   
 
-            await this.firstName_textbox.click();
+        }
+
+        async completarDatosEmployee(employeeData){
+            console.log("En completarDatosEmployee");
+            //await this.firstName_textbox.click();
+            //Completar los datos del empleado a partir del archivo json y devolver el id generado
             await this.firstName_textbox.fill(employeeData.primerNombre);
             await this.middleName_textbox.fill(employeeData.medioNombre);
             await this.lastName_textbox.fill(employeeData.apellido);
@@ -68,13 +64,19 @@ exports.employeePage=class employeePagePOM{
                 await this.password2_textbox.fill(employeeData.password2);
                 expect(employeeData.password1).toBe(employeeData.password2);
             }
-            await this.saveButtton.click();
             return await this.id_textbox.inputValue();
+        }
+ 
+        async guardarEmployee(){
+            console.log("En guardarEmployee");
+            //Guardar el empleado creado
+            await this.saveButtton.click();            
     }
 
         async addEmployeeValidado(){
+            console.log("En addEmployeeValidado");
+            //Validar que se haya creado el empleado y que se muestren los datos personales
             await this.page.waitForLoadState('networkidle');
-            //await expect(this.page.locator('xpath=//*[@id="app"]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/h6')).toHaveText('Personal Details');
             await expect(this.page.getByRole('heading', { name: 'Personal Details' })).toHaveText('Personal Details');
     }
 }
